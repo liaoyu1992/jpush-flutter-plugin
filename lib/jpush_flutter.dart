@@ -20,14 +20,14 @@ class JPush {
   static final JPush _instance =
       new JPush.private(const MethodChannel('jpush'), const LocalPlatform());
 
-  EventHandler _onReceiveNotification;
-  EventHandler _onOpenNotification;
-  EventHandler _onReceiveMessage;
-  EventHandler _onReceiveNotificationAuthorization;
+  late EventHandler _onReceiveNotification;
+  late EventHandler _onOpenNotification;
+  late EventHandler _onReceiveMessage;
+  late EventHandler _onReceiveNotificationAuthorization;
 
   void setup({
-    String appKey,
-    bool production,
+    required String appKey,
+    required bool production,
     String channel = '',
     bool debug = false,
   }) {
@@ -45,10 +45,10 @@ class JPush {
   /// 初始化 JPush 必须先初始化才能执行其他操作(比如接收事件传递)
   ///
   void addEventHandler({
-    EventHandler onReceiveNotification,
-    EventHandler onOpenNotification,
-    EventHandler onReceiveMessage,
-    EventHandler onReceiveNotificationAuthorization,
+    required EventHandler onReceiveNotification,
+    required EventHandler onOpenNotification,
+    required EventHandler onReceiveMessage,
+    required EventHandler onReceiveNotificationAuthorization,
   }) {
     print(flutter_log + "addEventHandler:");
 
@@ -59,7 +59,7 @@ class JPush {
     _channel.setMethodCallHandler(_handleMethod);
   }
 
-  Future<Null> _handleMethod(MethodCall call) async {
+  Future<dynamic> _handleMethod(MethodCall call) async {
     print(flutter_log + "_handleMethod:");
 
     switch (call.method) {
@@ -239,7 +239,7 @@ class JPush {
   /// 清空通知栏上某个通知
   /// @param notificationId 通知 id，即：LocalNotification id
   ///
-  void clearNotification({@required int notificationId}) {
+  void clearNotification({required int notificationId}) {
     print(flutter_log + "clearNotification:");
     _channel.invokeListMethod("clearNotification",notificationId);
   }
@@ -338,15 +338,15 @@ class LocalNotification {
   final String subtitle; //?
 
   const LocalNotification(
-      {@required this.id,
-      @required this.title,
-      @required this.content,
-      @required this.fireTime,
-      this.buildId,
-      this.extra,
+      {required this.id,
+      required this.title,
+      required this.content,
+      required this.fireTime,
+      required this.buildId,
+      required this.extra,
       this.badge = 0,
-      this.soundName,
-      this.subtitle})
+      required this.soundName,
+      required this.subtitle})
       : assert(id != null),
         assert(title != null),
         assert(content != null),

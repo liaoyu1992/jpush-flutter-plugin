@@ -7,15 +7,9 @@ import 'package:jpush_flutter/jpush_flutter.dart';
 
 
 void main() {
-  MockMethodChannel mockChannel;
-  JPush jpush;
-
-  setUp(() {
-    mockChannel = new MockMethodChannel();
-    jpush = new JPush.private(mockChannel, FakePlatform(operatingSystem: 'ios'));
-  });
-
-    jpush.setup(
+  MockMethodChannel mockChannel = MockMethodChannel();
+  JPush jpush = JPush.private(mockChannel, FakePlatform(operatingSystem: 'ios'));
+  jpush.setup(
       appKey: "a1703c14b186a68a66ef86c1",
       channel: "theChannel",
       production: false
